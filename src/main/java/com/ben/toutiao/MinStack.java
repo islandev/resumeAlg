@@ -1,26 +1,36 @@
 package com.ben.toutiao;
 
-import java.util.Comparator;
 import java.util.Stack;
 
 public class MinStack {
 
   private Stack<Comparable> normalStack = new Stack<>();
-
+  private Stack<Comparable> minStack = new Stack<>();
   private Comparable minEl;
 
 
   void push(Comparable val) {
     if (normalStack.empty()) {
       minEl = val;
+      minStack.push(val);
     } else {
-      minEl = minEl.compareTo(val)>0 ? val : minEl;
+      if (minEl.compareTo(val) == 1) {
+        minStack.push(val);
+      }
     }
     normalStack.push(val);
   }
 
-  void pop(){
-    Comparable pop = normalStack.pop();
+  Comparable pop() {
+    Comparable norm = normalStack.pop();
+    if (minEl.compareTo(norm) != -1) {
+      minEl = minStack.pop();
+    }
+    return norm;
+  }
+
+  Comparable getMinEl() {
+    return minEl;
   }
 
 
