@@ -11,6 +11,9 @@ public class ReversedLinkedList {
             this.val = d;
             this.next = null;
         }
+
+        Node() {
+        }
     }
 
     void printList(Node node) {
@@ -31,6 +34,18 @@ public class ReversedLinkedList {
             current = next;
         }
         return pre;
+    }
+
+    void mergeNode(Node a, Node b, Node res) {
+        if (a == null) res = a;
+        if (b == null) res = b;
+        res = new Node(a.val + b.val);
+        mergeNode(a.next, b.next, res.next);
+    }
+
+    void mergeNodeC(Node a, Node b) {
+        Node res = new Node();
+        mergeNode(a, b, res);
     }
 
     int MergeNode(Node a, Node b) {
