@@ -1,7 +1,7 @@
 package com.ben.toutiao;
 
 public class ReversedLinkedList {
-    static Node head;
+
 
     static class Node {
         int val;
@@ -16,14 +16,8 @@ public class ReversedLinkedList {
         }
     }
 
-    void printList(Node node) {
-        while (node != null) {
-            System.out.print(node.val + "\t");
-            node = node.next;
-        }
-    }
 
-    Node reverseNode(Node head) {
+    static Node reverseNode(Node head) {
         Node current = head;
         Node pre = null;
         Node next = null;
@@ -36,41 +30,52 @@ public class ReversedLinkedList {
         return pre;
     }
 
-    void mergeNode(Node a, Node b, Node res) {
-        if (a == null) res = a;
-        if (b == null) res = b;
-        res = new Node(a.val + b.val);
-        mergeNode(a.next, b.next, res.next);
-    }
-
-    void mergeNodeC(Node a, Node b) {
+    static Node mergeNode(Node a, Node b) {
         Node res = new Node();
-        mergeNode(a, b, res);
-    }
+        Node h = res;
+        if (a == null) return b;
+        if (b == null) return a;
 
-    int MergeNode(Node a, Node b) {
-        int sum = 0;
-        return sum;
+        while (a != null || b != null) {
+            if (a == null) {
+                res.next = b;
+                break;
+            }
+            if (b == null) {
+                res.next = a;
+                break;
+            }
+            res.next = new Node(a.val + b.val);
+            res = res.next;
+            a = a.next;
+            b = b.next;
+        }
+        return h.next;
+
     }
+//
+//    static Node mergeNodeC(Node a, Node b) {
+//        Node res = new Node();
+//        mergeNode(a, b, res);
+//        return res.next;
+//    }
+
 
     public static void main(String[] args) {
-        ReversedLinkedList list = new ReversedLinkedList();
-        list.head = new Node(1);
-        list.head.next = new Node(2);
-        list.head.next.next = new Node(3);
 
-        list.head.next.next.next = new Node(4);
+        Node head1 = new Node(1);
+        head1.next = new Node(2);
+        head1.next.next = new Node(3);
+        head1.next.next.next = new Node(4);
+
+        Node head2 = new Node(3);
+        head2.next = new Node(4);
 
 
-        ReversedLinkedList list2 = new ReversedLinkedList();
-        list.head = new Node(3);
-
-        list.head.next.next = new Node(4);
-
-        list.printList(head);
-        head = list.reverseNode(head);
-        System.out.println("");
-        list.printList(head);
-
+        Node node = reverseNode(mergeNode(reverseNode(head1), reverseNode(head2)));
+        while (node != null) {
+            System.out.println(node.val);
+            node = node.next;
+        }
     }
 }
