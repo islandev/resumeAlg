@@ -53,12 +53,7 @@ public class ReversedLinkedList {
         return h.next;
 
     }
-//
-//    static Node mergeNodeC(Node a, Node b) {
-//        Node res = new Node();
-//        mergeNode(a, b, res);
-//        return res.next;
-//    }
+
 
 
     public static void main(String[] args) {
